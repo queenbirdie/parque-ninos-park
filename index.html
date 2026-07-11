@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friends of Parque Niños Unidos</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;background:#FAF7F2;color:#1C1008;min-height:100vh}
+  .container{max-width:700px;margin:0 auto;padding:2rem 1.25rem 4rem}
+  .lang-toggle{display:flex;gap:8px;margin-bottom:2rem}
+  .lang-btn{padding:6px 18px;border-radius:20px;border:1.5px solid #C4A882;background:transparent;font-size:13px;font-weight:500;cursor:pointer;color:#7B5540;font-family:'Inter',sans-serif;transition:all .15s}
+  .lang-btn.active{background:#2C1A0E;color:#F5E6C8;border-color:#2C1A0E}
+  .hero{background:#F0D9A8;border-radius:20px;padding:2.5rem 2rem;position:relative;overflow:hidden;margin-bottom:1.5rem}
+  .hero-art{position:absolute;right:0;top:0;bottom:0;width:42%;display:flex;align-items:center;justify-content:center}
+  .dot-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;padding:1.5rem 1rem}
+  .dot{width:20px;height:20px;border-radius:50%}
+  .hero-content{max-width:58%;position:relative;z-index:1}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#7B4F2E;margin-bottom:.6rem}
+  .hero h1{font-family:'Fraunces',serif;font-size:26px;font-weight:700;line-height:1.2;color:#2C1A0E;margin-bottom:.875rem}
+  .hero p{font-size:14px;line-height:1.65;color:#5C3A1E;margin-bottom:1rem}
+  .hero-sub{font-size:12px;color:#7B4F2E;font-style:italic}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+  .step{background:#fff;border:1px solid #E8D8C0;border-radius:14px;padding:1.1rem .875rem;text-align:center}
+  .step-num{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;margin:0 auto .6rem}
+  .step h3{font-size:13px;font-weight:600;color:#2C1A0E;margin-bottom:4px}
+  .step p{font-size:12px;color:#7B5540;line-height:1.4}
+  .card{background:#fff;border:1px solid #E8D8C0;border-radius:14px;padding:1.375rem 1.25rem;margin-bottom:1rem}
+  .card h2{font-family:'Fraunces',serif;font-size:19px;font-weight:600;color:#2C1A0E;margin-bottom:.75rem}
+  .card p{font-size:14px;line-height:1.65;color:#5C3A1E;margin-bottom:.6rem}
+  .card p:last-child{margin-bottom:0}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+  .split .card{margin-bottom:0}
+  .tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;margin:0 4px 8px 0}
+  .signup-box{background:#2C1A0E;border-radius:16px;padding:2rem 1.5rem;margin-bottom:1rem}
+  .signup-box h2{font-family:'Fraunces',serif;font-size:22px;color:#F5E6C8;margin-bottom:.5rem;text-align:center}
+  .signup-box > p{font-size:13px;color:#C4A882;margin-bottom:1.5rem;line-height:1.55;text-align:center}
+  .organizer{font-size:12px;color:#C4A882;text-align:center;margin-top:1rem;font-style:italic}
+  .form-iframe{width:100%;border:none;border-radius:12px;background:#fff;min-height:620px}
+  .faq-item{border-bottom:1px solid #E8D8C0;padding:1rem 0}
+  .faq-item:last-child{border-bottom:none;padding-bottom:0}
+  .faq-q{font-size:14px;font-weight:600;color:#2C1A0E;margin-bottom:.4rem}
+  .faq-a{font-size:13px;color:#5C3A1E;line-height:1.6}
+  footer{text-align:center;padding:2rem 0 .5rem;font-size:12px;color:#A08060;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')" id="btn-en">English</button>
+    <button class="lang-btn" onclick="setLang('es')" id="btn-es">Español</button>
+  </div>
+
+  <div class="hero">
+    <div class="hero-art"><div class="dot-grid" id="dot-grid"></div></div>
+    <div class="hero-content">
+      <div class="eyebrow" data-en="Mission District · San Francisco" data-es="Distrito Mission · San Francisco">Mission District · San Francisco</div>
+      <h1 data-en="Friends of Parque Niños Unidos" data-es="Amigos del Parque Niños Unidos">Friends of Parque Niños Unidos</h1>
+      <p data-en="A neighbor-led effort to keep our beloved park clean, safe, and full of life — 15 minutes at a time." data-es="Un esfuerzo vecinal para mantener nuestro querido parque limpio, seguro y lleno de vida — 15 minutos a la vez.">A neighbor-led effort to keep our beloved park clean, safe, and full of life — 15 minutes at a time.</p>
+      <div class="hero-sub" data-en="3090 23rd St · Open daily 6am–10pm" data-es="3090 Calle 23 · Abierto todos los días 6am–10pm">3090 23rd St · Open daily 6am–10pm</div>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:#FDE8C8;color:#7B4F2E;">1</div>
+      <h3 data-en="Sign up" data-es="Regístrate">Sign up</h3>
+      <p data-en="Pick a day that works" data-es="Elige el día que te convenga">Pick a day that works</p>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:#C8E8D4;color:#1A5C34;">2</div>
+      <h3 data-en="Show up" data-es="Preséntate">Show up</h3>
+      <p data-en="Picker + bag, that's it" data-es="Recogedor + bolsa, eso es todo">Picker + bag, that's it</p>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:#E8C8D8;color:#5C1A3A;">3</div>
+      <h3 data-en="15 minutes" data-es="15 minutos">15 minutes</h3>
+      <p data-en="Walk, pick up, drop bag" data-es="Camina, recoge, deja la bolsa">Walk, pick up, drop bag</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 data-en="Why we're doing this" data-es="Por qué lo hacemos">Why we're doing this</h2>
+    <p data-en="Parque Niños Unidos was built by this community — neighbors who spent a decade advocating for a place where children could play and families could gather. We want to honor that legacy by keeping it clean and welcoming every single day." data-es="El Parque Niños Unidos fue construido por esta comunidad — vecinos que pasaron una década luchando por un lugar donde los niños pudieran jugar y las familias reunirse. Queremos honrar ese legado manteniendo el parque limpio y acogedor todos los días.">Parque Niños Unidos was built by this community — neighbors who spent a decade advocating for a place where children could play and families could gather. We want to honor that legacy by keeping it clean and welcoming every single day.</p>
+    <p data-en="When we keep our park clean, we signal to everyone who visits — and everyone who lives here — that this place is loved. Cleanliness breeds care. Care breeds community." data-es="Cuando mantenemos el parque limpio, le demostramos a todos que este lugar es querido. La limpieza genera cuidado. El cuidado genera comunidad.">When we keep our park clean, we signal to everyone who visits — and everyone who lives here — that this place is loved. Cleanliness breeds care. Care breeds community.</p>
+  </div>
+
+  <div class="split">
+    <div class="card">
+      <h2 data-en="What you need" data-es="Qué necesitas">What you need</h2>
+      <p>
+        <span class="tag" style="background:#FDE8C8;color:#7B4F2E;" data-en="Picker" data-es="Recogedor">Picker</span>
+        <span class="tag" style="background:#C8E8D4;color:#1A5C34;" data-en="Garbage bag" data-es="Bolsa de basura">Garbage bag</span>
+        <span class="tag" style="background:#E8C8D8;color:#5C1A3A;" data-en="15 minutes" data-es="15 minutos">15 minutos</span>
+      </p>
+      <p data-en="No picker? We'll get you one — just note it when you sign up." data-es="¿No tienes recogedor? Te conseguimos uno — solo menciónalo al registrarte.">No picker? We'll get you one — just note it when you sign up.</p>
+    </div>
+    <div class="card">
+      <h2 data-en="What we're not" data-es="Lo que no somos">What we're not</h2>
+      <p data-en="No meetings. No commitments. No drama. Just neighbors who show up when they can, as often as they can." data-es="Sin reuniones. Sin compromisos. Sin drama. Solo vecinos que se presentan cuando pueden, tan seguido como pueden.">No meetings. No commitments. No drama. Just neighbors who show up when they can, as often as they can.</p>
+    </div>
+  </div>
+
+  <div class="signup-box">
+    <h2 data-en="Count me in" data-es="¡Cuenten conmigo!">Count me in</h2>
+    <p data-en="Takes 30 seconds. Lauren will follow up with a welcome note and a picker if you need one." data-es="Toma 30 segundos. Lauren te enviará una nota de bienvenida y un recogedor si lo necesitas.">Takes 30 seconds. Lauren will follow up with a welcome note and a picker if you need one.</p>
+    <iframe class="form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSdMm-6x6x_ospW9bYQzpEOVsEv2foLUVgxmILfZWohoeOvtVQ/viewform?embedded=true" title="Sign up form">Loading…</iframe>
+    <div class="organizer" data-en="Organized by Lauren Rosenthal Turon · your neighbor" data-es="Organizado por Lauren Rosenthal Turon · tu vecina">Organized by Lauren Rosenthal Turon · your neighbor</div>
+  </div>
+
+  <div class="card">
+    <h2 data-en="Frequently asked" data-es="Preguntas frecuentes">Frequently asked</h2>
+    <div class="faq-item">
+      <div class="faq-q" data-en="Isn't there already a program that does this?" data-es="¿No hay ya un programa que haga esto?">Isn't there already a program that does this?</div>
+      <div class="faq-a" data-en="SF Rec & Parks and the SF Parks Alliance run periodic organized cleanups — but they're occasional, not daily. This fills the gap with consistent, neighbor-led stewardship." data-es="SF Rec & Parks y SF Parks Alliance organizan limpiezas periódicas, pero son ocasionales. Nosotros llenamos ese espacio con una administración vecinal constante.">SF Rec & Parks and the SF Parks Alliance run periodic organized cleanups — but they're occasional, not daily. This fills the gap.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" data-en="Isn't this Parks & Rec's job?" data-es="¿No es eso trabajo de Parques y Recreación?">Isn't this Parks & Rec's job?</div>
+      <div class="faq-a" data-en="Technically yes — and they do their best across 230+ parks citywide. But daily litter pickup at neighborhood playgrounds isn't always possible. We're filling the gap." data-es="Técnicamente sí, y hacen lo que pueden con más de 230 parques. Pero la limpieza diaria no siempre es posible. Estamos llenando ese vacío.">Technically yes — and they do their best across 230+ parks citywide. But daily litter pickup isn't always possible. We're filling the gap.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" data-en="Is there a specific time I need to go?" data-es="¿Hay un horario específico para ir?">Is there a specific time I need to go?</div>
+      <div class="faq-a" data-en="Nope — go whenever works for you. Morning, after school pickup, evening walk. Any time helps." data-es="No — ve cuando te venga bien. Por la mañana, después de recoger a los niños, en un paseo vespertino. Cualquier momento ayuda.">Nope — go whenever works. Morning, after school pickup, evening walk. Any time helps.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" data-en="What if I can't make my usual day?" data-es="¿Y si no puedo ir en mi día habitual?">What if I can't make my usual day?</div>
+      <div class="faq-a" data-en="Go another day that week if you can, or skip guilt-free. The program works because enough neighbors show up consistently — not because any one person is perfect." data-es="Ve otro día si puedes, o simplemente no vayas sin culpa. El programa funciona porque suficientes vecinos se presentan con regularidad.">Go another day that week if you can, or skip guilt-free. The program works because enough neighbors show up consistently.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" data-en="Can I bring my kids or friends?" data-es="¿Puedo traer a mis hijos o amigos?">Can I bring my kids or friends?</div>
+      <div class="faq-a" data-en="Absolutely — the more the merrier. Kids love the picker. Just supervise young ones around any debris." data-es="Por supuesto — cuantos más, mejor. A los niños les encanta el recogedor. Solo supervisa a los pequeños.">Absolutely — the more the merrier. Kids love the picker.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" data-en="I see something that needs city attention — broken equipment, graffiti, hazardous waste. What do I do?" data-es="Veo algo que necesita atención de la ciudad. ¿Qué hago?">I see something that needs city attention — what do I do?</div>
+      <div class="faq-a" data-en="Report it via the SF311 app or call 311. Don't handle hazardous material yourself." data-es="Repórtalo a través de la app SF311 o llama al 311. No manipules materiales peligrosos tú mismo.">Report it via the SF311 app or call 311. Don't handle hazardous material yourself.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" data-en="How else can I help?" data-es="¿Cómo más puedo ayudar?">How else can I help?</div>
+      <div class="faq-a" data-en="Spread the word on Nextdoor, your building group chat, or to parents at school pickup. If you want a bigger role, reach out to Lauren directly." data-es="Corre la voz en Nextdoor, en el chat de tu edificio, o entre los padres en la salida del colegio. Si quieres un papel más activo, contáctate directamente con Lauren.">Spread the word on Nextdoor, your building group chat, or to parents at school pickup. If you want a bigger role, reach out to Lauren directly.</div>
+    </div>
+  </div>
+
+  <footer>
+    <span data-en="A grassroots community initiative · Not affiliated with SF Rec & Parks or SF Parks Alliance" data-es="Una iniciativa comunitaria de base · No afiliada con SF Rec & Parks ni SF Parks Alliance">A grassroots community initiative · Not affiliated with SF Rec & Parks or SF Parks Alliance</span><br>
+    <span data-en="Organized by Lauren Rosenthal Turon · your neighbor at Parque Niños Unidos" data-es="Organizado por Lauren Rosenthal Turon · tu vecina del Parque Niños Unidos">Organized by Lauren Rosenthal Turon · your neighbor at Parque Niños Unidos</span>
+  </footer>
+</div>
+<script>
+  const dotColors=['#E8742A','#4CAF82','#E8C84A','#D45A8A','#4A8AE8','#C84AE8','#7BC84A','#F5A623','#E84A8A','#4A8AC8','#E84A4A','#4AE8C8'];
+  const grid=document.getElementById('dot-grid');
+  for(let i=0;i<30;i++){const d=document.createElement('div');d.className='dot';d.style.background=dotColors[Math.floor(Math.random()*dotColors.length)];d.style.opacity=(0.35+Math.random()*.65).toFixed(2);grid.appendChild(d);}
+  let lang='en';
+  function setLang(l){lang=l;document.getElementById('btn-en').classList.toggle('active',l==='en');document.getElementById('btn-es').classList.toggle('active',l==='es');document.querySelectorAll('[data-en]').forEach(el=>{el.textContent=el.dataset[l];});}
+</script>
+</body>
+</html>
