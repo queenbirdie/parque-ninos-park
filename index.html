@@ -37,7 +37,22 @@
   .signup-box h2{font-family:'Fraunces',serif;font-size:22px;color:#F5E6C8;margin-bottom:.5rem;text-align:center}
   .signup-box > p{font-size:13px;color:#C4A882;margin-bottom:1.5rem;line-height:1.55;text-align:center}
   .organizer{font-size:12px;color:#C4A882;text-align:center;margin-top:1rem;font-style:italic}
-  .form-iframe{width:100%;border:none;border-radius:12px;background:#fff;min-height:620px}
+  .signup-form{display:flex;flex-direction:column;gap:12px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .signup-form label{font-size:11px;font-weight:600;letter-spacing:.03em;color:#C4A882;margin-bottom:5px;display:block}
+  .signup-form input,.signup-form select,.signup-form textarea{width:100%;padding:10px 12px;border-radius:8px;border:1px solid #4A3420;background:#3D2817;color:#F5E6C8;font-family:'Inter',sans-serif;font-size:14px}
+  .signup-form input::placeholder,.signup-form textarea::placeholder{color:#8A6F52}
+  .signup-form select{cursor:pointer}
+  .signup-form textarea{resize:vertical;min-height:60px}
+  .signup-form input:focus,.signup-form select:focus,.signup-form textarea:focus{outline:none;border-color:#C4A882}
+  .signup-submit{background:#F0D9A8;color:#2C1A0E;border:none;border-radius:8px;padding:12px;font-weight:600;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif;margin-top:4px;transition:background .15s}
+  .signup-submit:hover{background:#E8CC8E}
+  .signup-submit:disabled{opacity:.6;cursor:not-allowed}
+  .form-status{text-align:center;font-size:13px;margin-top:.75rem;color:#C4A882;display:none}
+  .form-status.error{color:#E88A8A}
+  .form-success{display:none;text-align:center;padding:1rem 0}
+  .form-success h3{font-family:'Fraunces',serif;font-size:19px;color:#F5E6C8;margin-bottom:.5rem}
+  .form-success p{font-size:13px;color:#C4A882;line-height:1.55}
   .faq-item{border-bottom:1px solid #E8D8C0;padding:1rem 0}
   .faq-item:last-child{border-bottom:none;padding-bottom:0}
   .faq-q{font-size:14px;font-weight:600;color:#2C1A0E;margin-bottom:.4rem}
@@ -105,7 +120,54 @@
   <div class="signup-box">
     <h2 data-en="Count me in" data-es="¡Cuenten conmigo!">Count me in</h2>
     <p data-en="Takes 30 seconds. Lauren will follow up with a welcome note and a picker if you need one." data-es="Toma 30 segundos. Lauren te enviará una nota de bienvenida y un recogedor si lo necesitas.">Takes 30 seconds. Lauren will follow up with a welcome note and a picker if you need one.</p>
-    <iframe class="form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSdMm-6x6x_ospW9bYQzpEOVsEv2foLUVgxmILfZWohoeOvtVQ/viewform?embedded=true" title="Sign up form">Loading…</iframe>
+
+    <form class="signup-form" id="signup-form">
+      <div class="form-row">
+        <div>
+          <label data-en="First name" data-es="Nombre">First name</label>
+          <input type="text" name="firstName" required>
+        </div>
+        <div>
+          <label data-en="Last name" data-es="Apellido">Last name</label>
+          <input type="text" name="lastName" required>
+        </div>
+      </div>
+      <div>
+        <label data-en="Email" data-es="Correo electrónico">Email</label>
+        <input type="email" name="email" required>
+      </div>
+      <div>
+        <label data-en="How often can you pick up trash?" data-es="¿Con qué frecuencia puedes recoger basura?">How often can you pick up trash?</label>
+        <select name="frequency" required>
+          <option value="" disabled selected data-en="Choose one" data-es="Elige una opción">Choose one</option>
+          <option value="Daily" data-en="Daily" data-es="Diario">Daily</option>
+          <option value="A few times a week" data-en="A few times a week" data-es="Varias veces por semana">A few times a week</option>
+          <option value="Weekly" data-en="Weekly" data-es="Semanal">Weekly</option>
+          <option value="A few times a month" data-en="A few times a month" data-es="Varias veces al mes">A few times a month</option>
+          <option value="Whenever I can" data-en="Whenever I can" data-es="Cuando pueda">Whenever I can</option>
+        </select>
+      </div>
+      <div>
+        <label data-en="Do you have a picker?" data-es="¿Tienes un recogedor?">Do you have a picker?</label>
+        <select name="picker" required>
+          <option value="" disabled selected data-en="Choose one" data-es="Elige una opción">Choose one</option>
+          <option value="Yes" data-en="Yes" data-es="Sí">Yes</option>
+          <option value="No — please send me one" data-en="No — please send me one" data-es="No — envíenme uno, por favor">No — please send me one</option>
+        </select>
+      </div>
+      <div>
+        <label data-en="Anything else you'd like to share? (optional)" data-es="¿Algo más que quieras compartir? (opcional)">Anything else you'd like to share? (optional)</label>
+        <textarea name="notes"></textarea>
+      </div>
+      <button type="submit" class="signup-submit" data-en="Sign me up" data-es="¡Regístrame!">Sign me up</button>
+      <div class="form-status" id="form-status"></div>
+    </form>
+
+    <div class="form-success" id="form-success">
+      <h3 data-en="You're in!" data-es="¡Ya estás dentro!">You're in!</h3>
+      <p data-en="Thanks for signing up — Lauren will follow up soon with a welcome note (and a picker, if you need one)." data-es="Gracias por registrarte — Lauren te enviará pronto una nota de bienvenida (y un recogedor, si lo necesitas).">Thanks for signing up — Lauren will follow up soon with a welcome note (and a picker, if you need one).</p>
+    </div>
+
     <div class="organizer" data-en="Organized by Lauren Rosenthal Turon · your neighbor" data-es="Organizado por Lauren Rosenthal Turon · tu vecina">Organized by Lauren Rosenthal Turon · your neighbor</div>
   </div>
 
@@ -152,6 +214,39 @@
   for(let i=0;i<30;i++){const d=document.createElement('div');d.className='dot';d.style.background=dotColors[Math.floor(Math.random()*dotColors.length)];d.style.opacity=(0.35+Math.random()*.65).toFixed(2);grid.appendChild(d);}
   let lang='en';
   function setLang(l){lang=l;document.getElementById('btn-en').classList.toggle('active',l==='en');document.getElementById('btn-es').classList.toggle('active',l==='es');document.querySelectorAll('[data-en]').forEach(el=>{el.textContent=el.dataset[l];});}
+
+  const SCRIPT_URL='https://script.google.com/macros/s/AKfycbypxTjfmGaJM7hJ5eIHjuZ17Q_Y3_Aw1DidsXgf9qNtiOkxX4yll966pgBS_XR-J5dUIA/exec';
+  const signupForm=document.getElementById('signup-form');
+  const formStatus=document.getElementById('form-status');
+  signupForm.addEventListener('submit',function(e){
+    e.preventDefault();
+    const btn=this.querySelector('.signup-submit');
+    btn.disabled=true;
+    formStatus.style.display='none';
+    formStatus.classList.remove('error');
+    const data={
+      firstName:this.firstName.value.trim(),
+      lastName:this.lastName.value.trim(),
+      email:this.email.value.trim(),
+      frequency:this.frequency.value,
+      picker:this.picker.value,
+      notes:this.notes.value.trim()
+    };
+    fetch(SCRIPT_URL,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(data)
+    }).then(()=>{
+      signupForm.style.display='none';
+      document.getElementById('form-success').style.display='block';
+    }).catch(()=>{
+      btn.disabled=false;
+      formStatus.textContent=lang==='en'?'Something went wrong — please try again or email Lauren directly.':'Algo salió mal — intenta de nuevo o escribe a Lauren directamente.';
+      formStatus.classList.add('error');
+      formStatus.style.display='block';
+    });
+  });
 </script>
 </body>
 </html>
