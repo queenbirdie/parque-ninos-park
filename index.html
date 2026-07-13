@@ -148,14 +148,6 @@
         <input type="text" name="crossStreets" required>
       </div>
       <div>
-        <label data-en="Do you have a picker?" data-es="¿Tienes un recogedor?">Do you have a picker?</label>
-        <select name="picker" required>
-          <option value="" disabled selected data-en="Choose one" data-es="Elige una opción">Choose one</option>
-          <option value="Yes" data-en="Yes" data-es="Sí">Yes</option>
-          <option value="No — please send me one" data-en="No — please send me one" data-es="No — envíenme uno, por favor">No — please send me one</option>
-        </select>
-      </div>
-      <div>
         <label data-en="Anything else you'd like to share? (optional)" data-es="¿Algo más que quieras compartir? (opcional)">Anything else you'd like to share? (optional)</label>
         <textarea name="notes"></textarea>
       </div>
@@ -230,7 +222,6 @@
       email:this.email.value.trim(),
       phone:this.phone.value.trim(),
       crossStreets:this.crossStreets.value.trim(),
-      picker:this.picker.value,
       notes:this.notes.value.trim()
     };
     fetch(SCRIPT_URL,{
