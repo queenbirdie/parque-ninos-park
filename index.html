@@ -133,20 +133,19 @@
           <input type="text" name="lastName" required>
         </div>
       </div>
-      <div>
-        <label data-en="Email" data-es="Correo electrónico">Email</label>
-        <input type="email" name="email" required>
+      <div class="form-row">
+        <div>
+          <label data-en="Email" data-es="Correo electrónico">Email</label>
+          <input type="email" name="email" required>
+        </div>
+        <div>
+          <label data-en="Phone" data-es="Teléfono">Phone</label>
+          <input type="tel" name="phone" required>
+        </div>
       </div>
       <div>
-        <label data-en="How often can you pick up trash?" data-es="¿Con qué frecuencia puedes recoger basura?">How often can you pick up trash?</label>
-        <select name="frequency" required>
-          <option value="" disabled selected data-en="Choose one" data-es="Elige una opción">Choose one</option>
-          <option value="Daily" data-en="Daily" data-es="Diario">Daily</option>
-          <option value="A few times a week" data-en="A few times a week" data-es="Varias veces por semana">A few times a week</option>
-          <option value="Weekly" data-en="Weekly" data-es="Semanal">Weekly</option>
-          <option value="A few times a month" data-en="A few times a month" data-es="Varias veces al mes">A few times a month</option>
-          <option value="Whenever I can" data-en="Whenever I can" data-es="Cuando pueda">Whenever I can</option>
-        </select>
+        <label data-en="Nearest cross streets" data-es="Calles transversales más cercanas">Nearest cross streets</label>
+        <input type="text" name="crossStreets" required>
       </div>
       <div>
         <label data-en="Do you have a picker?" data-es="¿Tienes un recogedor?">Do you have a picker?</label>
@@ -229,7 +228,8 @@
       firstName:this.firstName.value.trim(),
       lastName:this.lastName.value.trim(),
       email:this.email.value.trim(),
-      frequency:this.frequency.value,
+      phone:this.phone.value.trim(),
+      crossStreets:this.crossStreets.value.trim(),
       picker:this.picker.value,
       notes:this.notes.value.trim()
     };
