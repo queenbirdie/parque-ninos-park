@@ -57,6 +57,8 @@
   .faq-item:last-child{border-bottom:none;padding-bottom:0}
   .faq-q{font-size:14px;font-weight:600;color:#2C1A0E;margin-bottom:.4rem}
   .faq-a{font-size:13px;color:#5C3A1E;line-height:1.6}
+  .faq-a+.faq-a{margin-top:.6rem}
+  .faq-a a{color:#5C3A1E;text-decoration:underline}
   footer{text-align:center;padding:2rem 0 .5rem;font-size:12px;color:#A08060;line-height:1.6}
 </style>
 </head>
@@ -190,11 +192,15 @@
       <div class="faq-q" data-en="How else can I help?" data-es="¿Cómo más puedo ayudar?">How else can I help?</div>
       <div class="faq-a" data-en="Spread the word in your building group chat, to other parents at school pickup, wherever. We are also planning to get together informally now and then to build community among volunteers. If you want a bigger role, reach out to the organizing team directly." data-es="Corre la voz en el chat de tu edificio, con otros padres en la salida del colegio, donde sea. También estamos planeando reunirnos informalmente de vez en cuando para construir comunidad entre voluntarios. Si quieres un papel más activo, contáctate directamente con el equipo organizador.">Spread the word in your building group chat, to other parents at school pickup, wherever. We are also planning to get together informally now and then to build community among volunteers. If you want a bigger role, reach out to the organizing team directly.</div>
     </div>
+    <div class="faq-item">
+      <div class="faq-q" data-en="Who is on this organizing team? And how do I get involved?" data-es="¿Quién forma parte del equipo organizador? ¿Y cómo puedo participar?">Who is on this organizing team? And how do I get involved?</div>
+      <div class="faq-a" data-en="Hi — I'm Lauren, and I'm a one-woman organizing team (for now). For those who frequent Niños Unidos — I'm the tall brunette with two crazy toddlers who walks around picking up trash. For those who live around 23rd and Folsom — I'm the tall brunette who's always walking around with two crazy poodles." data-es="Hola — soy Lauren, y por ahora soy un equipo organizador de una sola persona. Para quienes frecuentan Niños Unidos — soy la morena alta con dos pequeños traviesos que anda recogiendo basura. Para quienes viven cerca de 23rd y Folsom — soy la morena alta que siempre anda paseando con dos caniches traviesos.">Hi — I'm Lauren, and I'm a one-woman organizing team (for now). For those who frequent Niños Unidos — I'm the tall brunette with two crazy toddlers who walks around picking up trash. For those who live around 23rd and Folsom — I'm the tall brunette who's always walking around with two crazy poodles.</div>
+      <div class="faq-a"><span data-en="We live across the street from Niños Unidos, and I just can't stand the sight of all the trash alongside where my kiddos are playing, so I decided to do something about it — every time I go, I bring my picker and pick up as much as I can. Often others come up to thank me for what I'm doing, but honestly, it's not that much effort — which is what made me think: maybe this could be a team effort! So yes, if you'd like to get involved, I'd love to hear from you — please fill out the form above and/or email me at " data-es="Vivimos frente al Parque Niños Unidos, y simplemente no soporto ver toda la basura junto a donde juegan mis hijos, así que decidí hacer algo al respecto — cada vez que voy, llevo mi recogedor y junto todo lo que puedo. Muchas veces la gente se acerca a agradecerme por lo que hago, pero honestamente no es tanto esfuerzo — lo cual me hizo pensar: ¡tal vez esto podría ser un esfuerzo en equipo! Así que sí, si quieres participar me encantaría saber de ti — completa el formulario de arriba y/o escríbeme a ">We live across the street from Niños Unidos, and I just can't stand the sight of all the trash alongside where my kiddos are playing, so I decided to do something about it — every time I go, I bring my picker and pick up as much as I can. Often others come up to thank me for what I'm doing, but honestly, it's not that much effort — which is what made me think: maybe this could be a team effort! So yes, if you'd like to get involved, I'd love to hear from you — please fill out the form above and/or email me at </span><a href="mailto:friendsofsfparks@gmail.com">friendsofsfparks@gmail.com</a></div>
+    </div>
   </div>
 
   <footer>
-    <span data-en="A grassroots community initiative · Not affiliated with SF Rec & Parks or SF Parks Alliance" data-es="Una iniciativa comunitaria de base · No afiliada con SF Rec & Parks ni SF Parks Alliance">A grassroots community initiative · Not affiliated with SF Rec & Parks or SF Parks Alliance</span><br>
-    <span data-en="Organized by Lauren Rosenthal Turon · your neighbor at Parque Niños Unidos" data-es="Organizado por Lauren Rosenthal Turon · tu vecina del Parque Niños Unidos">Organized by Lauren Rosenthal Turon · your neighbor at Parque Niños Unidos</span>
+    <span data-en="A grassroots community initiative · Not affiliated with SF Rec & Parks or SF Parks Alliance" data-es="Una iniciativa comunitaria de base · No afiliada con SF Rec & Parks ni SF Parks Alliance">A grassroots community initiative · Not affiliated with SF Rec & Parks or SF Parks Alliance</span>
   </footer>
 </div>
 <script>
@@ -231,7 +237,7 @@
       document.getElementById('form-success').style.display='block';
     }).catch(()=>{
       btn.disabled=false;
-      formStatus.textContent=lang==='en'?'Something went wrong — please try again or email Lauren directly.':'Algo salió mal — intenta de nuevo o escribe a Lauren directamente.';
+      formStatus.textContent=lang==='en'?'Something went wrong — please try again or email friendsofsfparks@gmail.com.':'Algo salió mal — intenta de nuevo o escribe a friendsofsfparks@gmail.com.';
       formStatus.classList.add('error');
       formStatus.style.display='block';
     });
