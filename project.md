@@ -72,8 +72,9 @@ Note: `Form Responses 1`'s entire sheet is linked to the site's original Google 
 - 2026-07-13: Swapped the bench's stroller for a second, smaller figure seated next to the adult — the stroller read as confusing/unclear (its handle faced away from the adult, so it didn't visually connect as "being pushed by this person"). Illustration banner now final: two trees left, bench with parent + child, seesaw with two kids on opposite ends, tree + sun right.
 - 2026-07-13: Generalized the organizing-team FAQ's location detail from "near 23rd and Folsom" to "around the Mission" — Lauren flagged that pairing a specific physical description with a specific cross-street was more identifying than intended for a public page.
 - 2026-07-13: Resolved the redundant day-grid tracker — Lauren renamed the standalone sheet (https://docs.google.com/spreadsheets/d/1zFwBV1Mnpv6pTJfLkZ1p_fvTJLzeb2Rj7uta4lx-pbk/edit) to "DNU — do not use." The `Volunteer sign up` tab in the main spreadsheet is now the single source of truth for day assignments.
+- 2026-07-13: Finalized confirmation-email copy after Lauren's edits — dropped "We've received your info and" (redundant with "we'll follow up"), and simplified the signature from "The Friends of Parque Niños Unidos organizing team / friendsofsfparks@gmail.com" to just "Friends of Parque Niños Unidos." Spanish translation updated to match. Wired into the Apps Script as Version 7 (see code block below) — awaiting Lauren to paste in and deploy.
 
-## Apps Script code (Version 6, deployed 2026-07-13 — kept here for reference/redeploy)
+## Apps Script code (Version 7, drafted 2026-07-13 — not yet deployed, see below)
 ```javascript
 function doPost(e) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -83,10 +84,37 @@ function doPost(e) {
   const rosterRow = [new Date(), data.firstName, data.lastName, data.email, data.phone, data.notes];
   const rosterSheet = ss.getSheetByName('Roster');
   if (rosterSheet) { rosterSheet.appendRow(rosterRow); }
+
+  if (data.email) {
+    const subject = 'Thanks for signing up to help at Parque Niños Unidos!';
+    const body = `Hi ${data.firstName},
+
+Thanks so much for signing up to help keep Parque Niños Unidos clean! We'll follow up shortly to help you pick a day (or days) that work for you, and get you connected with our volunteer WhatsApp chat.
+
+If you don't have a trash picker, don't worry — we'll get you sorted when we're in touch.
+
+Thanks again for pitching in — neighbors like you are what make this work.
+
+— Friends of Parque Niños Unidos
+
+---
+
+Hola ${data.firstName},
+
+¡Muchas gracias por registrarte para ayudar a mantener limpio el Parque Niños Unidos! Te contactaremos pronto para ayudarte a elegir el día (o días) que mejor te funcionen, y conectarte con nuestro chat de voluntarios en WhatsApp.
+
+Si no tienes un recogedor de basura, no te preocupes — te conseguiremos uno cuando nos pongamos en contacto.
+
+Gracias de nuevo por sumarte — vecinos como tú son los que hacen esto posible.
+
+— Friends of Parque Niños Unidos`;
+    MailApp.sendEmail(data.email, subject, body);
+  }
+
   return ContentService.createTextOutput(JSON.stringify({result: 'success'})).setMimeType(ContentService.MimeType.JSON);
 }
 ```
-Note: editing this code alone doesn't update the live `/exec` URL — must deploy a new version via Manage Deployments → pencil icon → Version: New version → Deploy.
+Note: editing this code alone doesn't update the live `/exec` URL — must deploy a new version via Manage Deployments → pencil icon → Version: New version → Deploy. Sends a bilingual (EN + ES) confirmation email via `MailApp.sendEmail` right after the sheet writes succeed; uses Lauren's own Gmail quota (Apps Script `MailApp` sends as the script owner, no separate email service needed).
 
 ## Separate, related thread (not yet actioned)
 Lauren is also trying to identify the right SF Rec & Parks contact for a broader park cleanliness/safety initiative — has already confirmed with the district supervisor's office that no neighborhood park association exists for this park. Next step there: reach out to the SF Parks Alliance to ask about existing programs/points of contact before building anything new (avoid reinventing the wheel).
