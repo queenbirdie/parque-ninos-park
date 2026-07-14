@@ -74,7 +74,7 @@ Note: `Form Responses 1`'s entire sheet is linked to the site's original Google 
 - 2026-07-13: Resolved the redundant day-grid tracker — Lauren renamed the standalone sheet (https://docs.google.com/spreadsheets/d/1zFwBV1Mnpv6pTJfLkZ1p_fvTJLzeb2Rj7uta4lx-pbk/edit) to "DNU — do not use." The `Volunteer sign up` tab in the main spreadsheet is now the single source of truth for day assignments.
 - 2026-07-13: Finalized confirmation-email copy after Lauren's edits — dropped "We've received your info and" (redundant with "we'll follow up"), and simplified the signature from "The Friends of Parque Niños Unidos organizing team / friendsofsfparks@gmail.com" to just "Friends of Parque Niños Unidos." Spanish translation updated to match. Wired into the Apps Script as Version 7 (see code block below) — awaiting Lauren to paste in and deploy.
 
-## Apps Script code (Version 10, drafted 2026-07-14 — not yet deployed, see below)
+## Apps Script code (Version 11, drafted 2026-07-14 — not yet deployed, see below)
 ```javascript
 function doPost(e) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -89,25 +89,21 @@ function doPost(e) {
     const subject = 'Thanks for signing up to help at Parque Niños Unidos!';
     const body = `Hi ${data.firstName},
 
-Thanks so much for signing up to help keep Parque Niños Unidos clean! We'll follow up shortly to help you pick a day (or days) that work for you, and get you connected with our volunteer WhatsApp chat.
+Thanks so much for signing up to help keep Parque Niños Unidos clean! We'll follow up shortly to get you on the volunteer schedule, and also add you to our volunteer WhatsApp chat. If you don't have a trash picker, don't worry — we'll get you sorted.
 
-If you don't have a trash picker, don't worry — we'll get you sorted when we're in touch.
+Really appreciate you pitching in — neighbors like you are what make this work.
 
-Thanks again for pitching in — neighbors like you are what make this work.
-
-— Friends of Parque Niños Unidos
+Friends of Parque Niños Unidos
 
 ---
 
 Hola ${data.firstName},
 
-¡Muchas gracias por registrarte para ayudar a mantener limpio el Parque Niños Unidos! Te contactaremos pronto para ayudarte a elegir el día (o días) que mejor te funcionen, y conectarte con nuestro chat de voluntarios en WhatsApp.
+¡Muchas gracias por registrarte para ayudar a mantener limpio el Parque Niños Unidos! Te contactaremos pronto para agregarte al calendario de voluntarios y también al chat de voluntarios en WhatsApp. Si no tienes un recogedor de basura, no te preocupes — te conseguiremos uno.
 
-Si no tienes un recogedor de basura, no te preocupes — te conseguiremos uno cuando nos pongamos en contacto.
+Agradecemos mucho que te sumes — vecinos como tú son los que hacen esto posible.
 
-Gracias de nuevo por sumarte — vecinos como tú son los que hacen esto posible.
-
-— Friends of Parque Niños Unidos`;
+Friends of Parque Niños Unidos`;
     try {
       GmailApp.sendEmail(data.email, subject, body, { from: 'friendsofsfparks@gmail.com', name: 'Friends of Parque Niños Unidos' });
     } catch (err) {
@@ -123,7 +119,7 @@ Gracias de nuevo por sumarte — vecinos como tú son los que hacen esto posible
   return ContentService.createTextOutput(JSON.stringify({result: 'success'})).setMimeType(ContentService.MimeType.JSON);
 }
 ```
-Note: editing this code alone doesn't update the live `/exec` URL — must deploy a new version via Manage Deployments → pencil icon → Version: New version → Deploy. Sends a bilingual (EN + ES) confirmation email right after the sheet writes succeed. **Version 8 (2026-07-13):** Version 7's `doPost` failed outright in production — confirmed via the new `Errors` tab (added in v8) that the real cause was a missing `https://www.googleapis.com/auth/script.send_mail` authorization (a plain "Deploy new version" never triggers Google's consent prompt for a newly-added scope; fixed by manually running a throwaway function once to trigger it). Also wrapped the email send in try/catch so a future email failure can never block the sheet writes / roster entry again. **Version 9 (2026-07-14):** Lauren wanted the email to actually originate from friendsofsfparks@gmail.com rather than her personal Gmail. Added `{ from: 'friendsofsfparks@gmail.com', name: '...' }` to `MailApp.sendEmail` — confirmed friendsofsfparks@gmail.com is a verified "Send mail as" alias under lrturon@gmail.com (the account that owns/runs this script), but the email still sent as lrturon@gmail.com; `name` applied, `from` didn't. **Version 10 (2026-07-14):** `MailApp.sendEmail`'s `from` option doesn't reliably honor personal Gmail Send-As aliases even when verified — switched to `GmailApp.sendEmail`, which is the API that correctly supports sending as a verified alias. Requires a new one-time authorization (the `gmail.send` scope is broader than `script.send_mail`, so expect a more expansive-looking permission screen — same "run a throwaway function once" pattern as before, see deploy steps).
+Note: editing this code alone doesn't update the live `/exec` URL — must deploy a new version via Manage Deployments → pencil icon → Version: New version → Deploy. Sends a bilingual (EN + ES) confirmation email right after the sheet writes succeed. **Version 8 (2026-07-13):** Version 7's `doPost` failed outright in production — confirmed via the new `Errors` tab (added in v8) that the real cause was a missing `https://www.googleapis.com/auth/script.send_mail` authorization (a plain "Deploy new version" never triggers Google's consent prompt for a newly-added scope; fixed by manually running a throwaway function once to trigger it). Also wrapped the email send in try/catch so a future email failure can never block the sheet writes / roster entry again. **Version 9 (2026-07-14):** Lauren wanted the email to actually originate from friendsofsfparks@gmail.com rather than her personal Gmail. Added `{ from: 'friendsofsfparks@gmail.com', name: '...' }` to `MailApp.sendEmail` — confirmed friendsofsfparks@gmail.com is a verified "Send mail as" alias under lrturon@gmail.com (the account that owns/runs this script), but the email still sent as lrturon@gmail.com; `name` applied, `from` didn't. **Version 10 (2026-07-14):** `MailApp.sendEmail`'s `from` option doesn't reliably honor personal Gmail Send-As aliases even when verified — switched to `GmailApp.sendEmail`, which is the API that correctly supports sending as a verified alias. Requires a new one-time authorization (the `gmail.send` scope is broader than `script.send_mail`, so expect a more expansive-looking permission screen — same "run a throwaway function once" pattern as before, see deploy steps). **Version 11 (2026-07-14):** Trimmed the email copy per Lauren's edit — dropped "help you pick a day (or days) that work for you" in favor of "get you on the volunteer schedule," tightened the picker line, changed the closing line to "Really appreciate you pitching in," and dropped the em dash before the sign-off ("Friends of Parque Niños Unidos" now stands alone, not "— Friends of..."). Spanish translation updated to match.
 
 ## Separate, related thread (not yet actioned)
 Lauren is also trying to identify the right SF Rec & Parks contact for a broader park cleanliness/safety initiative — has already confirmed with the district supervisor's office that no neighborhood park association exists for this park. Next step there: reach out to the SF Parks Alliance to ask about existing programs/points of contact before building anything new (avoid reinventing the wheel).
