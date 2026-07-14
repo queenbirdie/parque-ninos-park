@@ -145,10 +145,6 @@
         </div>
       </div>
       <div>
-        <label data-en="Nearest cross streets" data-es="Calles transversales más cercanas">Nearest cross streets</label>
-        <input type="text" name="crossStreets" required>
-      </div>
-      <div>
         <label data-en="Anything else you'd like to share? (optional)" data-es="¿Algo más que quieras compartir? (opcional)">Anything else you'd like to share? (optional)</label>
         <textarea name="notes"></textarea>
       </div>
@@ -224,7 +220,6 @@
       lastName:this.lastName.value.trim(),
       email:this.email.value.trim(),
       phone:this.phone.value.trim(),
-      crossStreets:this.crossStreets.value.trim(),
       notes:this.notes.value.trim()
     };
     fetch(SCRIPT_URL,{
