@@ -74,7 +74,7 @@ Note: `Form Responses 1`'s entire sheet is linked to the site's original Google 
 - 2026-07-13: Resolved the redundant day-grid tracker — Lauren renamed the standalone sheet (https://docs.google.com/spreadsheets/d/1zFwBV1Mnpv6pTJfLkZ1p_fvTJLzeb2Rj7uta4lx-pbk/edit) to "DNU — do not use." The `Volunteer sign up` tab in the main spreadsheet is now the single source of truth for day assignments.
 - 2026-07-13: Finalized confirmation-email copy after Lauren's edits — dropped "We've received your info and" (redundant with "we'll follow up"), and simplified the signature from "The Friends of Parque Niños Unidos organizing team / friendsofsfparks@gmail.com" to just "Friends of Parque Niños Unidos." Spanish translation updated to match. Wired into the Apps Script as Version 7 (see code block below) — awaiting Lauren to paste in and deploy.
 
-## Apps Script code (Version 7, drafted 2026-07-13 — not yet deployed, see below)
+## Apps Script code (Version 8, drafted 2026-07-13 — not yet deployed, see below)
 ```javascript
 function doPost(e) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -108,13 +108,22 @@ Si no tienes un recogedor de basura, no te preocupes — te conseguiremos uno cu
 Gracias de nuevo por sumarte — vecinos como tú son los que hacen esto posible.
 
 — Friends of Parque Niños Unidos`;
-    MailApp.sendEmail(data.email, subject, body);
+    try {
+      MailApp.sendEmail(data.email, subject, body);
+    } catch (err) {
+      let errorSheet = ss.getSheetByName('Errors');
+      if (!errorSheet) {
+        errorSheet = ss.insertSheet('Errors');
+        errorSheet.appendRow(['Timestamp', 'Email attempted', 'Error']);
+      }
+      errorSheet.appendRow([new Date(), data.email, err.toString()]);
+    }
   }
 
   return ContentService.createTextOutput(JSON.stringify({result: 'success'})).setMimeType(ContentService.MimeType.JSON);
 }
 ```
-Note: editing this code alone doesn't update the live `/exec` URL — must deploy a new version via Manage Deployments → pencil icon → Version: New version → Deploy. Sends a bilingual (EN + ES) confirmation email via `MailApp.sendEmail` right after the sheet writes succeed; uses Lauren's own Gmail quota (Apps Script `MailApp` sends as the script owner, no separate email service needed).
+Note: editing this code alone doesn't update the live `/exec` URL — must deploy a new version via Manage Deployments → pencil icon → Version: New version → Deploy. Sends a bilingual (EN + ES) confirmation email via `MailApp.sendEmail` right after the sheet writes succeed; uses Lauren's own Gmail quota (Apps Script `MailApp` sends as the script owner, no separate email service needed). **Version 8 change (2026-07-13):** Version 7's `doPost` failed outright in production (per Executions log) — likely `MailApp` needing a one-time manual authorization that a plain "Deploy new version" doesn't trigger, but the Executions panel UI wasn't cooperating to confirm the exact error. Version 8 wraps the email send in try/catch so (a) a future email failure can never block the sheet writes / roster entry again, and (b) any error gets logged to a new `Errors` tab in the spreadsheet, readable directly without fighting the Apps Script Executions UI.
 
 ## Separate, related thread (not yet actioned)
 Lauren is also trying to identify the right SF Rec & Parks contact for a broader park cleanliness/safety initiative — has already confirmed with the district supervisor's office that no neighborhood park association exists for this park. Next step there: reach out to the SF Parks Alliance to ask about existing programs/points of contact before building anything new (avoid reinventing the wheel).
