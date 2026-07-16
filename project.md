@@ -1,6 +1,6 @@
 # Friends of Parque Niños Unidos — Park Cleanup Site
 
-**Status:** Live at https://friendsofsfparks.org (custom domain, 2026-07-11). Fully working, no known open items.
+**Status:** Live at https://friendsofsfparks.org (custom domain, 2026-07-11). Fully built and stable as of 2026-07-15 — copy, illustration, favicon, and confirmation email (bcc confirmed received) all shipped and verified. Remaining items are manual/Lauren-only (see Next steps), not build work.
 
 **Brand note:** Lauren bought both friendsofsfparks.com and .org intending this to grow into a citywide (not just Mission District) park stewardship brand — this Parque Niños Unidos page is the first park, more may be added later. The on-page content/title still reads "Friends of Parque Niños Unidos" specifically; revisit copy/framing if/when a second park is added.
 
@@ -11,6 +11,8 @@ A neighbor-led effort to keep Parque Niños Unidos (3090 23rd St, Mission Distri
 
 ## Files
 - `index.html` — single-page bilingual (EN/ES) site: hero, how-it-works, FAQ, signup section
+- `manifest.json` — home-screen install config (name, theme color, icon references)
+- `icons/` — `icon.svg` + PNGs (16/32/180/192/512px) for the favicon/home-screen icon; `park-illustration.svg` + `park-illustration.png` (2000×629) for the trees/bench/seesaw scene, standalone copies of what's also inlined in `index.html`
 - Git repo pushed to https://github.com/queenbirdie/parque-ninos-park (public, required for free GitHub Pages)
 
 ## What's done
@@ -51,7 +53,8 @@ Note: `Form Responses 1`'s entire sheet is linked to the site's original Google 
 1. Share the live link (friendsofsfparks.org) with neighbors (Nextdoor, building group chats, WhatsApp) — see [[project_community_building]] for existing distribution channels.
 2. When/if a second park is added, revisit whether the homepage should introduce the citywide "Friends of SF Parks" brand before drilling into individual park pages.
 3. Create the volunteer WhatsApp group (Lauren, manually) and decide whether to link the sign-up sheet from within it or keep it to 1:1 follow-ups only.
-4. Draft and wire up a confirmation email (via `MailApp.sendEmail` in the Apps Script `doPost`) so signups get an automatic "we got your request" reply — bilingual copy drafted 2026-07-13, awaiting Lauren's sign-off before implementing.
+4. ~~Draft and wire up a confirmation email~~ — done 2026-07-14, Version 13 deployed, Lauren confirmed the bcc arrived correctly.
+5. Separate thread, not yet actioned: identify the right SF Rec & Parks / SF Parks Alliance contact for a broader park cleanliness initiative (see bottom of this doc); also tracked in Notion's "🛝 Park efforts" task alongside the still-open gate-signs idea and Adopt-A-Street/Street Parks program outreach.
 
 ## Wording changes log
 - 2026-07-11: Replaced hardcoded "Open daily 6am–10pm" with a link ("Check current hours") to the official SF Rec & Parks page (https://sfrecpark.org/facilities/facility/details/Parque-Ninos-Unidos-361) — avoids the site showing stale/wrong hours if the park's posted hours change. Official hours at time of writing were 5am–midnight (restrooms have separate seasonal hours), which didn't match the old placeholder text.
@@ -74,8 +77,9 @@ Note: `Form Responses 1`'s entire sheet is linked to the site's original Google 
 - 2026-07-13: Resolved the redundant day-grid tracker — Lauren renamed the standalone sheet (https://docs.google.com/spreadsheets/d/1zFwBV1Mnpv6pTJfLkZ1p_fvTJLzeb2Rj7uta4lx-pbk/edit) to "DNU — do not use." The `Volunteer sign up` tab in the main spreadsheet is now the single source of truth for day assignments.
 - 2026-07-13: Finalized confirmation-email copy after Lauren's edits — dropped "We've received your info and" (redundant with "we'll follow up"), and simplified the signature from "The Friends of Parque Niños Unidos organizing team / friendsofsfparks@gmail.com" to just "Friends of Parque Niños Unidos." Spanish translation updated to match. Wired into the Apps Script as Version 7 (see code block below) — awaiting Lauren to paste in and deploy.
 - 2026-07-14: **Replaced the favicon.** Lauren flagged that the original tree icon (trunk + canopy) read as phallic at small sizes. Explored several replacements via a comparison artifact (dots, leaf, grove-of-circles — grove rejected for looking like Mickey Mouse ears) before Lauren asked for something pulled from the illustration itself; landed on a bench pictogram (a standard park/wayfinding symbol, reads clearly even at 16px). Final version: green top rail, pink seat rail, dark-brown legs, on the hero card's warm tan background (#F0D9A8) rather than the dark brown used everywhere else — Lauren wanted it "more colorful and lighter." All `icons/*` files and `manifest.json`/`theme-color` updated to match the new background.
+- 2026-07-15: Session close-out. Confirmation email (Version 13) verified working — Lauren received the bcc copy. Added standalone `park-illustration.svg`/`.png` files to `icons/` (previously the illustration only existed inline in `index.html`) so Lauren has local copies of every graphic asset; Finder opened to the folder for her to grab them. Notion's existing "🛝 Park efforts" task updated with current site status instead of creating a new task. No open build work remains — only manual/Lauren-side next steps (WhatsApp group, outreach, SF Parks Alliance contact).
 
-## Apps Script code (Version 13, drafted 2026-07-14 — not yet deployed, see below)
+## Apps Script code (Version 13, deployed and confirmed working 2026-07-14)
 ```javascript
 function doPost(e) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
