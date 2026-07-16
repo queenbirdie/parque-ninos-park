@@ -3,8 +3,8 @@
   "short_name": "Parque Niños",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#2C1A0E",
-  "theme_color": "#2C1A0E",
+  "background_color": "#F0D9A8",
+  "theme_color": "#F0D9A8",
   "icons": [
     { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
